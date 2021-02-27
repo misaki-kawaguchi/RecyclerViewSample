@@ -3,8 +3,12 @@ package com.misakikawaguchi.recyclerviewsample
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,5 +62,19 @@ class MainActivity : AppCompatActivity() {
         menuList.add(menu)
 
         return menuList
+    }
+
+    // RecyclerViewのビューホルダクラス
+    private inner class RecyclerListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // リスト1行分中でメニュー名を表示する画面部品
+        var tvMenuName: TextView
+        // リスト1行分中でメニュー金額を表示する画面部品
+        var tvMenuPrice: TextView
+
+        init {
+            // 引数で渡されたリスト1行分の画面部品中から表示に使われるTextViewを取得
+            tvMenuName = itemView.findViewById(R.id.tvMenuName)
+            tvMenuPrice = itemView.findViewById(R.id.tvMenuPrice)
+        }
     }
 }
