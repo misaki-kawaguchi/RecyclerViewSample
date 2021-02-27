@@ -3,9 +3,12 @@ package com.misakikawaguchi.recyclerviewsample
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import org.w3c.dom.Text
@@ -30,10 +33,25 @@ class MainActivity : AppCompatActivity() {
         toolbarLayout.setExpandedTitleColor(Color.WHITE)
         // 縮小サイズ時の文字色を設定
         toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY)
+
+        // リサイクラービューのデータ表示処理
+        // RecyclerViewを取得
+        val lvMenu = findViewById<RecyclerView>(R.id.lvMenu)
+        // LinearLayoutManagerオブジェクトを生成
+        val layout = LinearLayoutManager(applicationContext)
+        // RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定
+        lvMenu.layoutManager = layout
+
+        // 定食メニューリストデータを生成
+        val menuList = createTeishokuList()
+        // アダプタオブジェクトを生成
+        val adapter = RecyclerListAdapter(menuList)
+        // RecyclerViewにアダプタオブジェクトを設定
+        lvMenu.adapter = adapter
     }
 
     // リストビューに表示させる定食リストデータを生成するメソッド
-    private fun createTeishoku(): MutableList<MutableMap<String, Any>> {
+    private fun createTeishokuList(): MutableList<MutableMap<String, Any>> {
         // 定食メニューリスト用のListオブジェクトを用意
         val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
 
@@ -77,4 +95,43 @@ class MainActivity : AppCompatActivity() {
             tvMenuPrice = itemView.findViewById(R.id.tvMenuPrice)
         }
     }
+
+    // RecyclerViewのアダプタクラス
+    private inner class RecyclerListAdapter(private val _listData: MutableList<MutableMap<String, Any>>): RecyclerView.Adapter<RecyclerListViewHolder>() {
+
+        // ビューホルダオブジェクトを生成するメソッド
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerListViewHolder {
+            //レイアウトインフレータを取得。
+            val inflater = LayoutInflater.from(applicationContext)
+            //row.xmlをインフレートし、1行分の画面部品とする。
+            val view = inflater.inflate(R.layout.row, parent, false)
+            //ビューホルダオブジェクトを生成。
+            val holder = RecyclerListViewHolder(view)
+            //生成したビューホルダをリターン。
+            return holder
+        }
+
+        // ビューホルダ内の各画面部品に表示データを割り当てるメソッド
+        override fun onBindViewHolder(holder: RecyclerListViewHolder, position: Int) {
+            // リストデータから該当1行分のデータを取得
+            val item = _listData[position]
+            // メニュー名文字列を取得
+            val menuName = item["name"] as String
+            // メニュー金額を取得
+            val menuPrice = item["price"] as Int
+            // 表示用に金額を文字列に変換
+            val menuPriceStr = menuPrice.toString()
+
+            // メニュー名と金額をビューホルダ生のTextViewに設定
+            holder.tvMenuName.text = menuName
+            holder.tvMenuPrice.text = menuPriceStr
+        }
+
+        // データ件数を返すメソッド
+        override fun getItemCount(): Int {
+            // リストデータ中の件数をリターン
+            return _listData.size
+        }
+    }
 }
+
