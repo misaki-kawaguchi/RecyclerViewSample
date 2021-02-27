@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -111,6 +112,8 @@ class MainActivity : AppCompatActivity() {
             val inflater = LayoutInflater.from(applicationContext)
             //row.xmlをインフレートし、1行分の画面部品とする。
             val view = inflater.inflate(R.layout.row, parent, false)
+            // インフレートされた1行分の画面部品にリスナを設定
+            view.setOnClickListener(ItemClickListener())
             //ビューホルダオブジェクトを生成。
             val holder = RecyclerListViewHolder(view)
             //生成したビューホルダをリターン。
@@ -137,6 +140,20 @@ class MainActivity : AppCompatActivity() {
         override fun getItemCount(): Int {
             // リストデータ中の件数をリターン
             return _listData.size
+        }
+    }
+
+    // リストをタップしたときのリスナクラス
+    private  inner class ItemClickListener : View.OnClickListener {
+        override fun onClick(v: View) {
+            // タップされたLinerLayout内にあるメニュー名表示TextViewを取得
+            val tvMenuName = v.findViewById<TextView>(R.id.tvMenuName)
+            // メニュー名表示TextViewから表示されているメニュー名文字列を取得
+            val menuName = tvMenuName.text.toString()
+            // トーストに表示する文字列を生成
+            val msg = getString(R.string.msg_header) + menuName
+            // トーストを表示
+            Toast.makeText(applicationContext, msg , Toast.LENGTH_LONG).show()
         }
     }
 }
