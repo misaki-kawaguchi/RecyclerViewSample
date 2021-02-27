@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -48,6 +49,11 @@ class MainActivity : AppCompatActivity() {
         val adapter = RecyclerListAdapter(menuList)
         // RecyclerViewにアダプタオブジェクトを設定
         lvMenu.adapter = adapter
+
+        // 区切り専用のオブジェクトを生成
+        val decorator = DividerItemDecoration(applicationContext, layout.orientation)
+        // RecyclerViewに区切り線オブジェクトを設定
+        lvMenu.addItemDecoration(decorator)
     }
 
     // リストビューに表示させる定食リストデータを生成するメソッド
