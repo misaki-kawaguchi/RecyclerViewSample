@@ -27,4 +27,36 @@ class MainActivity : AppCompatActivity() {
         // 縮小サイズ時の文字色を設定
         toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY)
     }
+
+    // リストビューに表示させる定食リストデータを生成するメソッド
+    private fun createTeishoku(): MutableList<MutableMap<String, Any>> {
+        // 定食メニューリスト用のListオブジェクトを用意
+        val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
+
+        //「から揚げ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録
+        var menu = mutableMapOf("name" to "から揚げ定食", "price" to 800, "desc" to "若鳥のから揚げにサラダ、ご飯とお味噌汁が付きます。")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "ハンバーグ定食", "price" to 800, "desc" to "ハンバーグにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "生姜焼き定食", "price" to 800, "desc" to "生姜焼きにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "ステーキ定食", "price" to 800, "desc" to "ステーキにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "野菜炒め定食", "price" to 800, "desc" to "野菜炒めにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "とんかつ定食", "price" to 800, "desc" to "とんかつにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "ミンチカツ定食", "price" to 800, "desc" to "ミンチカツにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "チキンカツ定食", "price" to 800, "desc" to "チキンカツにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "コロッケ定食", "price" to 800, "desc" to "コロッケにサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "焼き魚定食", "price" to 800, "desc" to "焼き魚にサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+        menu = mutableMapOf("name" to "焼肉定食", "price" to 800, "desc" to "焼肉にサラダ、ご飯とお味噌汁がつきます")
+        menuList.add(menu)
+
+        return menuList
+    }
 }
